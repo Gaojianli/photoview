@@ -15,7 +15,7 @@ func ApiListenUrl() *url.URL {
 
 	apiPrefix := "/"
 	if shouldServeUI {
-		apiPrefix = "/api"
+		apiPrefix = path.Join(ApiEndpointUrl().Path, "/api")
 	}
 
 	var listenAddr string
@@ -48,10 +48,10 @@ func ApiEndpointUrl() *url.URL {
 	var apiEndpointStr string
 
 	shouldServeUI := ShouldServeUI()
-	if shouldServeUI {
+
+	apiEndpointStr = EnvAPIEndpoint.GetValue()
+	if apiEndpointStr == "" {
 		apiEndpointStr = "/"
-	} else {
-		apiEndpointStr = EnvAPIEndpoint.GetValue()
 	}
 
 	apiEndpointURL, err := url.Parse(apiEndpointStr)

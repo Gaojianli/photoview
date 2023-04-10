@@ -15,6 +15,7 @@ const (
 	EnvUIPath                    EnvironmentVariable = "PHOTOVIEW_UI_PATH"
 	EnvMediaCachePath            EnvironmentVariable = "PHOTOVIEW_MEDIA_CACHE"
 	EnvFaceRecognitionModelsPath EnvironmentVariable = "PHOTOVIEW_FACE_RECOGNITION_MODELS_PATH"
+	EnvUIPrefix                  EnvironmentVariable = "PHOTOVIEW_UI_PREFIX"
 )
 
 // Network related
@@ -82,4 +83,12 @@ func UIPath() string {
 	}
 
 	return "./ui"
+}
+
+func UIPrefix() string {
+	if prefix := EnvUIPrefix.GetValue(); prefix != "" {
+		return prefix
+	}
+
+	return "/"
 }

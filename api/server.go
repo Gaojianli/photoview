@@ -94,9 +94,10 @@ func main() {
 
 	shouldServeUI := utils.ShouldServeUI()
 
+	uiPrefix := utils.UIPrefix()
 	if shouldServeUI {
 		spa := routes.NewSpaHandler(utils.UIPath(), "index.html")
-		rootRouter.PathPrefix("/").Handler(spa)
+		rootRouter.PathPrefix(uiPrefix).Handler(spa)
 	}
 
 	if devMode {
@@ -110,7 +111,7 @@ func main() {
 		if uiEndpoint := utils.UiEndpointUrl(); uiEndpoint != nil {
 			log.Printf("Photoview UI public endpoint ready at %s\n", uiEndpoint.String())
 		} else {
-			log.Println("Photoview UI public endpoint ready at /")
+			log.Printf("Photoview UI public endpoint ready at %s\n", uiPrefix)
 		}
 
 		if !shouldServeUI {
