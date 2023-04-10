@@ -19,7 +19,11 @@ import { NotificationType } from './__generated__/globalTypes'
 
 export const API_ENDPOINT = import.meta.env.REACT_APP_API_ENDPOINT
   ? (import.meta.env.REACT_APP_API_ENDPOINT as string)
-  : urlJoin(location.origin, '/api')
+  : urlJoin(
+      location.origin,
+      (import.meta.env.REACT_APP_API_PREFIX as string | undefined) ?? '',
+      '/api'
+    )
 
 export const GRAPHQL_ENDPOINT = urlJoin(API_ENDPOINT, '/graphql')
 
